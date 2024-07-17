@@ -1,0 +1,15 @@
+{% extends 'vaccines/main.html' %}
+{% block content %}
+<h2>{{ question.question_tesxt }}</h2>
+{% if question.image %}
+<img src="{{ question.image.url }}"  style="height:300px; width:300px; border-radius: 8px;"> 
+{% else %}
+<p></p>
+{% endif %}
+<form method='post'action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input value="Reply" type="submit">
+</form>
+<a href="{% url 'vaccines:vacs' %}">Back</a>
+{% endblock %}

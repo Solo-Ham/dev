@@ -1,0 +1,40 @@
+<body>
+{% load custom_tags %}
+{% if request.user.is_authenticated %}
+<a href="{% url 'vaccines:show_profile' %}">@{{ request.user.username }}</a>
+<p>{{ request.user.email }}</p>
+{% if pic.profile_picture %}
+<img src="{{ pic.profile_picture.url }}" alt="Profile Picture" style="width:80px; height:80px; border-radius:50%;">
+{% else %}
+<p></p>
+{% endif %}
+<a href="{% url 'vaccines:show_profile' %}">Show Profile</a>
+<form method="post" action={% url 'registration:logout' %}>
+    {% csrf_token %}
+    <button type="submit">Log Out Here</button>
+</form>
+{% else %}
+<p><a href="{% url 'registration:login' %}">Login Here</a></p>
+<p><a href="{% url 'registration:register' %}">Sign Up</a></p>
+{% endif %}
+</div>
+<div>
+<div style="margin-bottom: 10px;">    
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'vaccines:create_question' %}">Ask a question</a>
+    {% endif %}
+{% display_profile_picture %}
+{% if request.user.is_authenticated %}
+<a href="{% url 'vaccines:show_bookmarks' %}">Bookmarks</a>
+<a href="{% url 'vaccines:vacs' %}">Home</a>
+{% endif %}
+{% block content %}
+
+{% endblock %}
+</body>
+
+<style>
+body{
+    font-family: verdana;
+}
+</style>

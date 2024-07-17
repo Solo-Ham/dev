@@ -1,0 +1,39 @@
+{% extends 'vaccines/main.html'  %}
+{% block content %}
+<div class="prof">
+{% if user_profile.profile_picture %}
+<image src="{{ user_profile.profile_picture.url }}" style="height:300px; width:300px; border-radius: 8px;">
+{% else %}
+<p>Update Your Profile Picture</p>
+{% endif %}
+</div>
+<div>
+{% if user_profile.bio %}
+<p>Bio:</p>
+{{ user_profile.bio }}
+{% else %}
+<p>No bio available</p>
+{% endif %}
+<p>Schools/Colleges attended:</p>
+{% if user_profile.school_attended %}
+<p>{{ user_profile.school_attended }}</p>
+{% else %}
+<p></p>
+{% endif %}
+<p>Occupation:</p>
+{% if user_profile.occupation %}
+<p>{{ user_profile.occupation }}</p>
+{% else %}
+<p></p>
+{% endif %}
+</div>
+{% if request.user.is_authenticated %}
+<a href="{% url 'vaccines:profile' %}">Edit Profile</a>
+{% endif %}
+<a href="{% url 'vaccines:vacs' %}">Back to HomePage</a>
+<style>
+.prof{
+    display: block;
+}
+</style>
+{% endblock %}

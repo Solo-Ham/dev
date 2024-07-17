@@ -1,0 +1,134 @@
+{% extends "vaccines/main.html" %}
+
+<body>
+{% block content %}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+    <div class="container">
+        <div>
+       
+        </div>
+        <div>
+            {% for x in q %}
+            {% if x.title %}
+            <h3>{{ x.title }}</h3>
+            {% else %}
+            <p></p>
+            {% endif %}
+            {% if x.image %}
+            <image src="{{ x.image.url }}" alt="No picture" style="width:350px; height:300px; border: 2px solid white; border-radius:20px;">
+            {% else %}
+            <p></p>
+            {% endif %}
+            <p>{{ x.question_text }}</p> 
+            <p style="font-size:12px">{{ x.pub_date }}</p>
+            <a href="{% url 'vaccines:like_question' x.id %}" class="likes"><i class="fa fa-thumbs-o-up" style="font-size:36px"></i>{{ x.like_count }}</a>
+            <p>Author: <a href="{% url 'vaccines:view_profile' x.id%}">{{ x.owner }}</a></p>
+            {% if user == x.owner %}
+            <p><a href="{% url 'vaccines:delete' x.id %}" class="sub">Delete</a></p>
+            <a href="{% url 'vaccines:update_question' x.id%}" class="sub">Update</a>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'vaccines:reply' x.id %}" class="sub">Reply</a>
+            <a href="{% url 'vaccines:details' x.id %}" class="sub">Show replies</a>
+            {% endif %}
+            <hr>
+            {% endfor %} 
+        </div>
+    </div>
+{% endblock content %}
+<style>
+    h4{
+        color:#87CEEB;
+    }
+
+    body{
+        background-color: #33495e;
+        font-family: verdana;
+    }
+
+    image{
+        border: 2px solid white;
+        border-radius: 20px;
+    }
+    p{
+        color: white;
+        font-style: italic;
+    }
+    a{
+        color: white;
+        font-style: italic;
+        text-decoration: none;
+    }
+
+    .likes{
+        background-color: #87CEEB;
+        padding: 6px;
+        border-radius:20px;
+        color: black;
+    }
+
+    .sub{
+        background-color: #87CEEB;
+        padding: 6px;
+        border-radius: 20px;
+        color:black;
+        margin-right: 15px;
+        margin-bottom: 10px
+    }
+    .container{
+        display: grid;
+        grid-template-columns: 1fr 3fr
+    }
+</style>
+
+</body>
+
+<style>
+    h4{
+        color:#87CEEB;
+    }
+
+    body{
+        background-color: #33495e;
+        font-family: verdana;
+    }
+
+    image{
+        border: 2px solid white;
+        border-radius: 20px;
+    }
+    p{
+        color: white;
+        font-style: italic;
+    }
+    a{
+        color: white;
+        font-style: italic;
+        text-decoration: none;
+    }
+
+    .likes{
+        background-color: #87CEEB;
+        padding: 6px;
+        border-radius:20px;
+        color: black;
+    }
+
+    .sub{
+        background-color: #87CEEB;
+        padding: 6px;
+        border-radius: 20px;
+        color:black;
+        margin-right: 15px;
+        margin-bottom: 10px
+    }
+    .container{
+        display: grid;
+        grid-template-columns: 1fr 3fr
+    }
+</style>
+

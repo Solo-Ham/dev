@@ -1,0 +1,27 @@
+{% extends 'vaccines/main.html' %}
+{% block content %}
+{% if bookmarks %}
+{% for bookmark in bookmarks %}
+{% if bookmark.question.title %}
+<h4>{{ bookmark.question.title }}</h4>
+{% else %}
+<p></p>
+{% endif %}
+<p>{{ bookmark.question.question_tesxt }}<p>
+{% if bookmark.question.image %}
+<image src="{{ bookmark.question.image.url }}" style="width:350px; height:300px; border-radius:8px;">
+{% endif %}
+<p>{{ bookmark.question.pub_date }}</p>
+<p>Author: {{ bookmark.question.owner }}</p>
+{% if request.user.is_authenticated %}
+<a href="{% url 'vaccines:reply' bookmark.question.id %}" class="sub">Reply</a>
+<a href="{% url 'vaccines:details' bookmark.question.id %}" class="sub">Show replies</a>
+<a href="{% url 'vaccines:remove_bookmark' bookmark.id %}">Remove from bookmarks</a>
+<h6>Bookmarked on: {{ bookmark.time_created }}</h6>
+{% endif %}
+<hr>
+{% endfor %}
+{% else %}
+<h3>No bookmarks exist<h3>
+{% endif %}
+{% endblock %}

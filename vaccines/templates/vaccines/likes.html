@@ -1,0 +1,12 @@
+{% extends 'vaccines/main.html' %}
+{% block content %}
+{% if likers %}
+<h4>The following liked the question</h4>
+{% for x in likers %}
+<a href="{% url 'vaccines:profile_like' x.user.id %}">@{{ x.user }}</p>
+{% endfor %}
+{% else %}
+<p>No likes so far for this question</p>
+{% endif %}
+<a href="{% url 'vaccines:details' question.id %}">Back to question</a>
+{% endblock %}
